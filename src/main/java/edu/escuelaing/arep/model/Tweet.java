@@ -3,11 +3,11 @@ package edu.escuelaing.arep.model;
 public class Tweet {
 
     private String avatar;
-    private  String displayName;
+    private String displayName;
     private String image;
     private String text;
     private String username;
-    private int verified;
+    private boolean verified;
 
     public String getAvatar() {
         return avatar;
@@ -49,11 +49,11 @@ public class Tweet {
         this.username = username;
     }
 
-    public int getVerified() {
+    public boolean getVerified() {
         return verified;
     }
 
-    public void setVerified(int verified) {
+    public void setVerified(boolean verified) {
         this.verified = verified;
     }
 }

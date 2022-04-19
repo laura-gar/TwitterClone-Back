@@ -20,8 +20,6 @@ public class App {
 
         port(getPort());
 
-        get("/hello", (req, res) -> "Hello Twitter");
-
         // Allow CORS
         options("/*",
                 (request, response) -> {
@@ -37,18 +35,25 @@ public class App {
                 });
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-        get("/feed", (req, res) -> {
-            res.type("application/json");
-            return twitterService.getTweets();
+        path("/api/v1", () -> {
+            path("/feed", () -> {
+                get("", (req, res) -> {
+                    res.type("application/json");
+                    return twitterService.getTweets();
+                });
+            });
+
+            post("/post", (req, res) -> {
+                res.type("application/json");
+                Tweet tweet = (new Gson()).fromJson(req.body(), Tweet.class);
+
+                return twitterService.postTweet(tweet);
+            });
         });
 
-        post("/feed", (req, res) -> {
-            Tweet tweet = (new Gson()).fromJson(req.body(), Tweet.class);
 
-            twitterService.postTweet(tweet);
-            return "OK";
 
-        });
+
 
 
     }

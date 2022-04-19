@@ -3,20 +3,39 @@ package edu.escuelaing.arep.services;
 import edu.escuelaing.arep.model.Tweet;
 
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
+import com.google.gson.*;
 
 public class TwitterService {
     ArrayList<Tweet> database = new ArrayList<Tweet>();
+    int requestSize = 20;
 
-    public void postTweet(Tweet tweet){
+    public JsonArray postTweet(Tweet tweet){
         database.add(tweet);
+
+        return new Gson().toJsonTree(new Tweet[]{tweet}).getAsJsonArray();
     }
 
-    public ArrayList<Tweet> getTweets(){
+    public JsonArray getTweets(){
         ArrayList<Tweet> finalList = new ArrayList<Tweet>();
-        for(int i = 0; i < 10; i++){
-            finalList.add(database.get(i));
+
+        if (database.size() == 0){
+            return new Gson().toJsonTree(finalList).getAsJsonArray();
         }
-        return finalList;
+
+        if (database.size() < requestSize){
+            int totalTweets = database.size();
+
+            for(int i = 0; i < totalTweets; i++){
+                finalList.add(database.get(i));
+            }
+        } else {
+            for(int i = 0; i < requestSize; i++){
+                finalList.add(database.get(i));
+            }
+        }
+
+        JsonArray response = new Gson().toJsonTree(finalList).getAsJsonArray();
+
+        return response;
     }
 }
