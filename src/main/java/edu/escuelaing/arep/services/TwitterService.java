@@ -22,15 +22,19 @@ public class TwitterService {
             return new Gson().toJsonTree(finalList).getAsJsonArray();
         }
 
+        int index = database.size() - 1;
+
         if (database.size() < requestSize){
             int totalTweets = database.size();
 
             for(int i = 0; i < totalTweets; i++){
-                finalList.add(database.get(i));
+                finalList.add(database.get(index));
+                index--;
             }
         } else {
             for(int i = 0; i < requestSize; i++){
-                finalList.add(database.get(i));
+                finalList.add(database.get(index));
+                index--;
             }
         }
 
