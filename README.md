@@ -12,7 +12,7 @@ This is a repository that includes all the backend code for the AREP-Twitter pro
 https://ec2-54-163-27-162.compute-1.amazonaws.com:4567/api/v1
 ```
 
-### ENDPOINTS
+### Endpoints
 
 ---
 
@@ -28,7 +28,7 @@ For converting posting a new tweet, you must use this endpoint:
 /post
 ```
 
-### REQUESTS
+### Requests
 
 ---
 
@@ -63,7 +63,7 @@ Where:
 - **verified**: 1 if the user is verified and 0 otherwise (this will display the blue check next to the _displayName_ on each tweet from the user).
 
 
-### RESPONSES
+### Responses
 
 ---
 
@@ -88,7 +88,7 @@ Where:
 - **username**: The username of the user that posted the tweet.
 - **verified**: 1 if the user is verified and 0 otherwise (this will display the blue check next to the _displayName_ on each tweet from the user).
 
-### LINKS
+### Links
 
 ---
 
