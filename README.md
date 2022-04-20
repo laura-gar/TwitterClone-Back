@@ -1,14 +1,6 @@
 # Let's convert some values!
 
-This is a repository that includes all the code needed to successfully deploy a unit converter to heroku, built with Java (Spark) and basic web technologies (HTML, JavaScript, CSS).
-
-## Architecture
-
----
-
-This is a simple _Client-Server_ architecture using an **APIRest** approach. The **backend** is a Spark application that exposes two endpoints that the **frontend** consumes. The communication is based on the REST protocol using **JSON** as standard for sending and receiving messages.
-
-The REST method used form communication is the **GET** method and the values required for doing the calculations are sent as _query params_ using the **value** key.
+This is a repository that includes all the backend code for the AREP-Twitter project, built with Java (using Spark framework) and Maven as a dependency manager.
 
 ### API
 
@@ -17,70 +9,84 @@ The REST method used form communication is the **GET** method and the values req
 **Base URL**
 
 ```url
-https://lab-01-arep-back.herokuapp.com/
+https://ec2-54-163-27-162.compute-1.amazonaws.com:4567/api/v1
 ```
 
 ### ENDPOINTS
 
 ---
 
-For converting **Celsius** degrees to Fahrenheit degrees, you must use this endpoint:
+For converting getting the last 20 tweets, you must use this endpoint:
 
 ```url
-/celsius
+/feed
 ```
 
-For converting **Fahrenheit** degrees to Celsius degrees, you must use this endpoint:
+For converting posting a new tweet, you must use this endpoint:
 
 ```url
-/fahrenheit
+/post
 ```
 
 ### REQUESTS
 
 ---
 
-All the requests are sent as **GET** requests to the backend. In order to send a value to convert you must use the **value** as a query param, like this:
+- For getting the last 20 tweets of the feed:
 
 ```url
-/celsius?value=32
+/feed
 ```
+
+- For posting a new tweet to the feed:
+
+```url
+/post
+```
+```json
+{
+  "avatar": "",
+  "displayName": "",
+  "image": "",
+  "text": "",
+  "username": "",
+  "verified": 0
+}
+```
+Where:
+
+- **avatar:** The URL of the profile image of the user
+- **displayName:** The name that should be shown from the user.
+- **image (optional)**: The URL of the image tweeted.
+- **text**: The tweet itself.
+- **username**: The username of the user that posted the tweet.
+- **verified**: 1 if the user is verified and 0 otherwise (this will display the blue check next to the _displayName_ on each tweet from the user).
+
 
 ### RESPONSES
 
 ---
 
-If a request is **successfully** sent to the server, it will respond with a message like this:
+When we do a **GET** to the _/feed_ endpoint:
 
 ```json
-{
-  "status": 200,
-  "result": 50.0,
-  "units": "Fahrenheit"
-}
+[{
+  "avatar": "",
+  "displayName": "",
+  "image": "",
+  "text": "",
+  "username": "",
+  "verified": 0
+}]
 ```
-
 Where:
 
-- **status:** The status of the request (see [HTTP status codes](https://developer.mozilla.org/es/docs/Web/HTTP/Status)).
-- **result:** The result of the conversion.
-- **units**: The units of the **result** field.
-
-If a request is sent in a bad format to the server, it will respond with a message like this:
-
-```json
-{
-  "status": 400,
-  "message": "The value sent is not valid.",
-  "value": "asdasd"
-}
-```
-
-Where:
-
-- **status:** The status of the request (see [HTTP status codes](https://developer.mozilla.org/es/docs/Web/HTTP/Status)).
-- **message:** The server message for the user.
-- **value:** The value sent by the user.
+- **avatar:** The URL of the profile image of the user
+- **displayName:** The name that should be shown from the user.
+- **image (optional)**: The URL of the image tweeted.
+- **text**: The tweet itself.
+- **username**: The username of the user that posted the tweet.
+- **verified**: 1 if the user is verified and 0 otherwise (this will display the blue check next to the _displayName_ on each tweet from the user).
 
 ### LINKS
 
@@ -89,22 +95,13 @@ Where:
 **Backend**
 
 ```url
-https://lab-01-arep-back.herokuapp.com/
+https://ec2-54-163-27-162.compute-1.amazonaws.com:4567/api/v1
 ```
 
-**Frontend**
-
-```url
-https://lab-01-arep-front.herokuapp.com/
-```
 
 ## Run the project locally!
 
----
-
-### Backend
-
-Download or clone the project, go to the _Backend_ directory and run:
+- Download or clone the project, go to the _Backend_ directory and run:
 
 ```url
 mvn package
@@ -112,25 +109,9 @@ mvn package
 
 Then, go to **App.java** and run the **main()** method.
 
-### Frontend
-
-Download or clone the project, go to the _Frontend_ directory and open the **index.html** file.
-
----
-
-### Let's run the tests!
-
-For running the automated tests of the API, download or clone the project, go to the _Backend_ directory and run:
-
-```url
-mvn test
-```
 
 ## Built With
-
 - [Spark](https://sparkjava.com/) - As the Java framework for the backend.
-- HTML and CSS - As the main technologies for developing the UI.
-- [JavaScript](https://developer.mozilla.org/es/docs/Web/JavaScript) - As the language used in the client for creating experiences and handling user events.
 
 ## Authors
 
